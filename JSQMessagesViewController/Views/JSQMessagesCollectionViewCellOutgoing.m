@@ -17,6 +17,7 @@
 //
 
 #import "JSQMessagesCollectionViewCellOutgoing.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation JSQMessagesCollectionViewCellOutgoing
 
@@ -27,6 +28,11 @@
     [super awakeFromNib];
     self.messageBubbleTopLabel.textAlignment = NSTextAlignmentRight;
     self.cellBottomLabel.textAlignment = NSTextAlignmentRight;
+
+	self.messageBubbleContainerView.layer.masksToBounds = NO;
+	self.messageBubbleContainerView.layer.shadowOffset = CGSizeMake(0, 10);
+	self.messageBubbleContainerView.layer.shadowRadius = 5;
+	self.messageBubbleContainerView.layer.shadowOpacity = 0.25;
 }
 
 @end
