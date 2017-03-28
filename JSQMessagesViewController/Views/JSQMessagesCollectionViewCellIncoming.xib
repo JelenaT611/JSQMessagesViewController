@@ -39,13 +39,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="btS-p8-B7Z" userLabel="Bubble container">
-                        <rect key="frame" x="16" y="40" width="244" height="94"/>
+                        <rect key="frame" x="16" y="40" width="244" height="106"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OCS-Fu-acq" userLabel="Bubble Image View">
-                                <rect key="frame" x="0.0" y="0.0" width="244" height="94"/>
+                                <rect key="frame" x="0.0" y="0.0" width="244" height="106"/>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KYU-B8-cUW" customClass="JSQMessagesCellTextView">
-                                <rect key="frame" x="6" y="0.0" width="238" height="94"/>
+                                <rect key="frame" x="6" y="0.0" width="238" height="106"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -80,7 +80,7 @@
                         </constraints>
                     </view>
                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Md1-I7-2AZ" userLabel="Accessory button">
-                        <rect key="frame" x="266" y="75" width="24" height="24"/>
+                        <rect key="frame" x="266" y="81" width="24" height="24"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="24" placeholder="YES" id="8xc-lG-N5Q"/>
                             <constraint firstAttribute="height" constant="24" placeholder="YES" id="VpB-3c-dKf"/>
@@ -90,7 +90,7 @@
                         </connections>
                     </button>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cell bottom label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UPz-5x-c1T" userLabel="Cell bottom label" customClass="JSQMessagesLabel">
-                        <rect key="frame" x="268" y="77" width="52" height="20"/>
+                        <rect key="frame" x="268" y="83" width="52" height="20"/>
                         <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="xPR-Ph-Ze9"/>
@@ -109,7 +109,7 @@
                 <constraint firstItem="afj-rd-iNv" firstAttribute="leading" secondItem="4lh-CK-yVn" secondAttribute="leading" id="OnD-mZ-QtR"/>
                 <constraint firstItem="Ufa-bF-l1Y" firstAttribute="leading" secondItem="4lh-CK-yVn" secondAttribute="leading" id="Z5z-m3-8Ne"/>
                 <constraint firstItem="afj-rd-iNv" firstAttribute="top" secondItem="4lh-CK-yVn" secondAttribute="top" id="ZG9-2M-N52"/>
-                <constraint firstAttribute="bottom" secondItem="btS-p8-B7Z" secondAttribute="bottom" constant="20" id="aJ2-1Z-b3w"/>
+                <constraint firstAttribute="bottom" secondItem="btS-p8-B7Z" secondAttribute="bottom" constant="8" id="aJ2-1Z-b3w"/>
                 <constraint firstAttribute="trailing" secondItem="Ufa-bF-l1Y" secondAttribute="trailing" id="cWQ-1Q-xOA"/>
                 <constraint firstItem="Ufa-bF-l1Y" firstAttribute="top" secondItem="afj-rd-iNv" secondAttribute="bottom" id="i9Y-sV-v6b"/>
                 <constraint firstItem="btS-p8-B7Z" firstAttribute="leading" secondItem="Da1-09-wR4" secondAttribute="trailing" constant="16" id="j0I-pm-eex"/>
