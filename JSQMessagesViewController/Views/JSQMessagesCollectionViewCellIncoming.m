@@ -30,7 +30,7 @@
     self.cellBottomLabel.textAlignment = NSTextAlignmentLeft;
 
 	self.messageBubbleContainerView.layer.masksToBounds = NO;
-	self.messageBubbleContainerView.layer.shadowOffset = CGSizeMake(0, 5);
+	self.messageBubbleContainerView.layer.shadowOffset = CGSizeMake(0, 3);
 	self.messageBubbleContainerView.layer.shadowRadius = 5;
 	self.messageBubbleContainerView.layer.shadowOpacity = 0.25;
 }
