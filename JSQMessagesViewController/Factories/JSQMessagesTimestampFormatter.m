@@ -86,6 +86,7 @@
     }
     
     NSString *relativeDate = [self relativeDateForDate:date];
+	if ([[NSDate date] timeIntervalSinceDate:date] <= 3600) { relativeDate = @""; }
     NSString *time = [self timeForDate:date];
     
     NSMutableAttributedString *timestamp = [[NSMutableAttributedString alloc] initWithString:relativeDate
