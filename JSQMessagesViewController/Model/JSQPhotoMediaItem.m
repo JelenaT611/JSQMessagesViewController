@@ -34,11 +34,12 @@
 
 #pragma mark - Initialization
 
-- (instancetype)initWithImage:(UIImage *)image
+- (instancetype)initWithImage:(UIImage *)image isSticker:(BOOL)isSticker
 {
     self = [super init];
     if (self) {
         _image = [image copy];
+		_isSticker = isSticker;
         _cachedImageView = nil;
     }
     return self;
@@ -73,12 +74,14 @@
     }
     
     if (self.cachedImageView == nil) {
-        CGSize size = [self mediaViewDisplaySize];
+		CGSize size = self.isSticker ? self.image.size : [self mediaViewDisplaySize];
         UIImageView *imageView = [[UIImageView alloc] initWithImage:self.image];
         imageView.frame = CGRectMake(0.0f, 0.0f, size.width, size.height);
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.clipsToBounds = YES;
-        [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:imageView isOutgoing:self.appliesMediaViewMaskAsOutgoing];
+		if (!self.isSticker) {
+			[JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:imageView isOutgoing:self.appliesMediaViewMaskAsOutgoing];
+		}
         self.cachedImageView = imageView;
     }
     
@@ -134,7 +137,7 @@
 
 - (instancetype)copyWithZone:(NSZone *)zone
 {
-    JSQPhotoMediaItem *copy = [[JSQPhotoMediaItem allocWithZone:zone] initWithImage:self.image];
+    JSQPhotoMediaItem *copy = [[JSQPhotoMediaItem allocWithZone:zone] initWithImage:self.image isSticker:self.isSticker];
     copy.appliesMediaViewMaskAsOutgoing = self.appliesMediaViewMaskAsOutgoing;
     return copy;
 }
