@@ -46,6 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Once the image has been retrieved, you can then set the image property.
  */
 - (instancetype)initWithImage:(nullable UIImage *)image isSticker: (BOOL)isSticker;
+- (instancetype)initWithImage:(nullable UIImage *)image;
 
 @end
 

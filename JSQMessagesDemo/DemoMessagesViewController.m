@@ -705,7 +705,7 @@
 {
     if ([UIPasteboard generalPasteboard].image) {
         // If there's an image in the pasteboard, construct a media item with that image and `send` it.
-        JSQPhotoMediaItem *item = [[JSQPhotoMediaItem alloc] initWithImage:[UIPasteboard generalPasteboard].image];
+        JSQPhotoMediaItem *item = [[JSQPhotoMediaItem alloc] initWithImage:[UIPasteboard generalPasteboard].image isSticker:NO];
         JSQMessage *message = [[JSQMessage alloc] initWithSenderId:self.senderId
                                                  senderDisplayName:self.senderDisplayName
                                                               date:[NSDate date]

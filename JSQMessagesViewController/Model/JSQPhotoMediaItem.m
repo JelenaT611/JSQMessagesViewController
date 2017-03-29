@@ -45,6 +45,17 @@
     return self;
 }
 
+- (instancetype)initWithImage:(nullable UIImage *)image
+{
+	self = [super init];
+	if (self) {
+		_image = [image copy];
+		_isSticker = NO;
+		_cachedImageView = nil;
+	}
+	return self;
+}
+
 - (void)clearCachedMediaViews
 {
     [super clearCachedMediaViews];
