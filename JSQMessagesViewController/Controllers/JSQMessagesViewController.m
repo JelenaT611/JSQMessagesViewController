@@ -232,7 +232,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     [[[self class] nib] instantiateWithOwner:self options:nil];
 
     [self jsq_configureMessagesViewController];
-    [self jsq_registerForNotifications:YES];
+   // [self jsq_registerForNotifications:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
