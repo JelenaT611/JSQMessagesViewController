@@ -33,6 +33,8 @@
 	self.messageBubbleContainerView.layer.shadowOffset = CGSizeMake(0, 3);
 	self.messageBubbleContainerView.layer.shadowRadius = 5;
 	self.messageBubbleContainerView.layer.shadowOpacity = 0.25;
+	self.clipsToBounds = NO;
+	self.contentView.clipsToBounds = NO;
 }
 
 @end

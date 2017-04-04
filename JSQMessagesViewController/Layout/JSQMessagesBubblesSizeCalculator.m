@@ -24,7 +24,7 @@
 #import "JSQMessageData.h"
 
 #import "UIImage+JSQMessages.h"
-
+#import "JSQPhotoMediaItem.h"
 
 @interface JSQMessagesBubblesSizeCalculator ()
 
@@ -103,7 +103,11 @@
     CGSize finalSize = CGSizeZero;
 
     if ([messageData isMediaMessage]) {
-        finalSize = [[messageData media] mediaViewDisplaySize];
+		if ([messageData isKindOfClass:[JSQPhotoMediaItem class]] && [(JSQPhotoMediaItem*)messageData isSticker]) {
+			finalSize = [(JSQPhotoMediaItem*)messageData image].size;
+		} else {
+			finalSize = [[messageData media] mediaViewDisplaySize];
+		}
     }
     else {
         CGSize avatarSize = [self jsq_avatarSizeForMessageData:messageData withLayout:layout];
