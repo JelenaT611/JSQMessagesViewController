@@ -103,8 +103,8 @@
     CGSize finalSize = CGSizeZero;
 
     if ([messageData isMediaMessage]) {
-		if ([messageData isKindOfClass:[JSQPhotoMediaItem class]] && [(JSQPhotoMediaItem*)messageData isSticker]) {
-			finalSize = [(JSQPhotoMediaItem*)messageData image].size;
+		if ([[messageData media] isKindOfClass:[JSQPhotoMediaItem class]] && [(JSQPhotoMediaItem*)[messageData media] isSticker]) {
+			finalSize = [(JSQPhotoMediaItem*)[messageData media] image].size;
 		} else {
 			finalSize = [[messageData media] mediaViewDisplaySize];
 		}
