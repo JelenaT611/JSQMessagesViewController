@@ -28,7 +28,7 @@
     self.editable = NO;
     self.selectable = YES;
     self.userInteractionEnabled = YES;
-    self.dataDetectorTypes = UIDataDetectorTypeNone;
+    self.dataDetectorTypes = UIDataDetectorTypeAll;
     self.showsHorizontalScrollIndicator = NO;
     self.showsVerticalScrollIndicator = NO;
     self.scrollEnabled = NO;

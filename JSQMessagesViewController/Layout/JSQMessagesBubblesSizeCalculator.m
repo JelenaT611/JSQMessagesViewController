@@ -137,7 +137,7 @@
         //  same as above, an extra 2 points of magix
         CGFloat finalWidth = MAX(stringSize.width + horizontalInsetsTotal, self.minimumBubbleWidth) + self.additionalInset;
 
-        finalSize = CGSizeMake(finalWidth-8, stringSize.height + verticalInsets);
+        finalSize = CGSizeMake(finalWidth-4, stringSize.height + verticalInsets);
     }
 
     [self.cache setObject:[NSValue valueWithCGSize:finalSize] forKey:@([messageData messageHash])];
