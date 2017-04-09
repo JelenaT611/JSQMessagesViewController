@@ -22,6 +22,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef enum {
+	StatusSending,
+	StatusSent,
+	StatusDelivered,
+	StatusSeen
+} MessageStatus;
+
 /**
  *  The `JSQMessage` class is a concrete class for message model objects that represents a single user message.
  *  The message can be a text message or media message, depending on how it is initialized.
@@ -65,6 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (copy, nonatomic, readonly, null_unspecified) id<JSQMessageMediaData> media;
 
+@property (nonatomic) MessageStatus status;
 
 #pragma mark - Initialization
 

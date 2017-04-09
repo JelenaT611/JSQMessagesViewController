@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -64,7 +64,7 @@
                             <constraint firstAttribute="bottom" secondItem="2qm-c6-OZf" secondAttribute="bottom" id="lts-Ve-wSh"/>
                         </constraints>
                     </view>
-                    <view clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X89-B1-aAd" userLabel="Avatar container">
+                    <view clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X89-B1-aAd" userLabel="Avatar container">
                         <rect key="frame" x="320" y="40" width="0.0" height="0.0"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y9b-D9-Q7W" userLabel="Avatar Image View"/>
@@ -80,10 +80,10 @@
                         </constraints>
                     </view>
                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BbA-sv-fxi" userLabel="Accessory button">
-                        <rect key="frame" x="40" y="81" width="24" height="24"/>
+                        <rect key="frame" x="46" y="130" width="16" height="16"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="24" placeholder="YES" id="J3j-ZO-4ds"/>
-                            <constraint firstAttribute="height" constant="24" placeholder="YES" id="SWo-od-s3h"/>
+                            <constraint firstAttribute="width" constant="16" placeholder="YES" id="J3j-ZO-4ds"/>
+                            <constraint firstAttribute="height" constant="16" placeholder="YES" id="SWo-od-s3h"/>
                         </constraints>
                         <connections>
                             <action selector="didTapAccessoryButton:" destination="23f-xH-rkY" eventType="touchUpInside" id="Hxk-1U-a8W"/>
@@ -108,15 +108,15 @@
                 <constraint firstItem="jxM-YD-sVG" firstAttribute="top" secondItem="23f-xH-rkY" secondAttribute="top" id="HYT-Tw-whz"/>
                 <constraint firstItem="2zh-vR-QJW" firstAttribute="leading" secondItem="7Uc-dI-YDD" secondAttribute="trailing" constant="8" id="K3t-Jb-zcn"/>
                 <constraint firstAttribute="trailing" secondItem="X89-B1-aAd" secondAttribute="trailing" id="KLt-Ix-wDa"/>
+                <constraint firstItem="BbA-sv-fxi" firstAttribute="bottom" secondItem="2zh-vR-QJW" secondAttribute="bottom" id="UCC-wY-YMR"/>
                 <constraint firstAttribute="bottom" secondItem="2zh-vR-QJW" secondAttribute="bottom" constant="8" id="Xu5-M6-mBd"/>
                 <constraint firstItem="7Uc-dI-YDD" firstAttribute="centerY" secondItem="2zh-vR-QJW" secondAttribute="centerY" id="ZpB-qP-U4m"/>
                 <constraint firstAttribute="trailing" secondItem="p52-YN-yLu" secondAttribute="trailing" id="gen-N0-uZj"/>
                 <constraint firstItem="p52-YN-yLu" firstAttribute="top" secondItem="jxM-YD-sVG" secondAttribute="bottom" id="jBD-JV-AWk"/>
                 <constraint firstItem="jxM-YD-sVG" firstAttribute="leading" secondItem="23f-xH-rkY" secondAttribute="leading" id="qeB-G5-1Wq"/>
-                <constraint firstItem="BbA-sv-fxi" firstAttribute="centerY" secondItem="2zh-vR-QJW" secondAttribute="centerY" id="qvK-E0-5P8"/>
                 <constraint firstItem="p52-YN-yLu" firstAttribute="leading" secondItem="23f-xH-rkY" secondAttribute="leading" id="tTj-Mp-0va"/>
                 <constraint firstItem="X89-B1-aAd" firstAttribute="leading" secondItem="2zh-vR-QJW" secondAttribute="trailing" constant="16" id="vMz-Yi-B0w"/>
-                <constraint firstItem="2zh-vR-QJW" firstAttribute="leading" secondItem="BbA-sv-fxi" secondAttribute="trailing" constant="6" id="wHt-Ue-oPX"/>
+                <constraint firstItem="2zh-vR-QJW" firstAttribute="leading" secondItem="BbA-sv-fxi" secondAttribute="trailing" constant="8" id="wHt-Ue-oPX"/>
             </constraints>
             <size key="customSize" width="317" height="245"/>
             <connections>

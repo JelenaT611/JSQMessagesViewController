@@ -359,7 +359,7 @@
 
 - (void)didPressAccessoryButton:(UIButton *)sender
 {
-    [self.inputToolbar.contentView.textView resignFirstResponder];
+    /*[self.inputToolbar.contentView.textView resignFirstResponder];
 
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Media messages", nil)
                                                        delegate:self
@@ -367,7 +367,7 @@
                                          destructiveButtonTitle:nil
                                               otherButtonTitles:NSLocalizedString(@"Send photo", nil), NSLocalizedString(@"Send location", nil), NSLocalizedString(@"Send video", nil), NSLocalizedString(@"Send video thumbnail", nil), NSLocalizedString(@"Send audio", nil), nil];
     
-    [sheet showFromToolbar:self.inputToolbar];
+    [sheet showFromToolbar:self.inputToolbar];*/
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -577,7 +577,7 @@
                                               NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid) };
     }
 
-    cell.accessoryButton.hidden = ![self shouldShowAccessoryButtonForMessage:msg];
+//    cell.accessoryButton.hidden = ![self shouldShowAccessoryButtonForMessage:msg];
     
     return cell;
 }

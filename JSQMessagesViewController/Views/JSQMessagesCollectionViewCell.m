@@ -146,9 +146,10 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 
 - (void)configureAccessoryButton
 {
-    UIColor *tintColor = [UIColor lightGrayColor];
-    UIImage *shareActionImage = [[UIImage jsq_shareActionImage] jsq_imageMaskedWithColor:tintColor];
-    [self.accessoryButton setImage:shareActionImage forState:UIControlStateNormal];
+
+//    UIColor *tintColor = [UIColor lightGrayColor];
+//    UIImage *shareActionImage = [[UIImage jsq_shareActionImage] jsq_imageMaskedWithColor:tintColor];
+//    [self.accessoryButton setImage:shareActionImage forState:UIControlStateNormal];
 }
 
 - (void)dealloc
@@ -186,7 +187,7 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     self.avatarImageView.image = nil;
     self.avatarImageView.highlightedImage = nil;
     
-    self.accessoryButton.hidden = YES;
+    //self.accessoryButton.hidden = YES;
 }
 
 - (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes
