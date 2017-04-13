@@ -105,8 +105,10 @@
     if ([messageData isMediaMessage]) {
 		if ([[messageData media] isKindOfClass:[JSQPhotoMediaItem class]] && [(JSQPhotoMediaItem*)[messageData media] isSticker]) {
 			finalSize = [(JSQPhotoMediaItem*)[messageData media] image].size;
+			finalSize.height += 16;
 		} else {
 			finalSize = [[messageData media] mediaViewDisplaySize];
+			finalSize.height += 16;
 		}
     }
     else {
