@@ -151,8 +151,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (weak, nonatomic, readonly, nullable) UIImageView *avatarImageView;
 
+@property (weak, nonatomic) IBOutlet UIImageView *statusImageView;
 
-@property (weak, nonatomic, readonly, nullable) UIImageView *statusImageView;
+//@property (weak, nonatomic, nullable) UIImageView *statusImageView;
 
 /**
  *  Returns the avatar container view of the cell. This view is the superview of the cell's avatarImageView.
