@@ -74,6 +74,11 @@ typedef enum {
 
 @property (nonatomic) MessageStatus status;
 
+
+@property (nonatomic) int timer;
+@property (nonatomic) float progress;
+@property (nonatomic, strong) NSString *messageId;
+
 #pragma mark - Initialization
 
 /**
