@@ -26,7 +26,8 @@ typedef enum {
 	StatusSending,
 	StatusSent,
 	StatusDelivered,
-	StatusSeen
+	StatusSeen,
+	StatusFailed
 } MessageStatus;
 
 /**
