@@ -46,63 +46,63 @@
 #pragma mark - Init
 
 - (instancetype)initWithCache:(NSCache *)cache
-		   minimumBubbleWidth:(NSUInteger)minimumBubbleWidth
-		usesFixedWidthBubbles:(BOOL)usesFixedWidthBubbles
+           minimumBubbleWidth:(NSUInteger)minimumBubbleWidth
+        usesFixedWidthBubbles:(BOOL)usesFixedWidthBubbles
 {
-	NSParameterAssert(cache != nil);
-	NSParameterAssert(minimumBubbleWidth > 0);
+    NSParameterAssert(cache != nil);
+    NSParameterAssert(minimumBubbleWidth > 0);
 
-	self = [super init];
-	if (self) {
-		_cache = cache;
-		_minimumBubbleWidth = minimumBubbleWidth;
-		_usesFixedWidthBubbles = usesFixedWidthBubbles;
-		_layoutWidthForFixedWidthBubbles = 0.0f;
+    self = [super init];
+    if (self) {
+        _cache = cache;
+        _minimumBubbleWidth = minimumBubbleWidth;
+        _usesFixedWidthBubbles = usesFixedWidthBubbles;
+        _layoutWidthForFixedWidthBubbles = 0.0f;
 
-		// this extra inset value is needed because `boundingRectWithSize:` is slightly off
-		// see comment below
-		_additionalInset = 2;
-	}
-	return self;
+        // this extra inset value is needed because `boundingRectWithSize:` is slightly off
+        // see comment below
+        _additionalInset = 2;
+    }
+    return self;
 }
 
 - (instancetype)init
 {
-	NSCache *cache = [NSCache new];
-	cache.name = @"JSQMessagesBubblesSizeCalculator.cache";
-	cache.countLimit = 200;
-	return [self initWithCache:cache
-			minimumBubbleWidth:[UIImage jsq_bubbleRegularTaillessImage].size.width
-		 usesFixedWidthBubbles:NO];
+    NSCache *cache = [NSCache new];
+    cache.name = @"JSQMessagesBubblesSizeCalculator.cache";
+    cache.countLimit = 200;
+    return [self initWithCache:cache
+            minimumBubbleWidth:[UIImage jsq_bubbleRegularTaillessImage].size.width
+         usesFixedWidthBubbles:NO];
 }
 
 #pragma mark - NSObject
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"<%@: cache=%@, minimumBubbleWidth=%@ usesFixedWidthBubbles=%@>",
-			[self class], self.cache, @(self.minimumBubbleWidth), @(self.usesFixedWidthBubbles)];
+    return [NSString stringWithFormat:@"<%@: cache=%@, minimumBubbleWidth=%@ usesFixedWidthBubbles=%@>",
+            [self class], self.cache, @(self.minimumBubbleWidth), @(self.usesFixedWidthBubbles)];
 }
 
 #pragma mark - JSQMessagesBubbleSizeCalculating
 
 - (void)prepareForResettingLayout:(JSQMessagesCollectionViewFlowLayout *)layout
 {
-	[self.cache removeAllObjects];
+    [self.cache removeAllObjects];
 }
 
 - (CGSize)messageBubbleSizeForMessageData:(id<JSQMessageData>)messageData
-							  atIndexPath:(NSIndexPath *)indexPath
-							   withLayout:(JSQMessagesCollectionViewFlowLayout *)layout
+                              atIndexPath:(NSIndexPath *)indexPath
+                               withLayout:(JSQMessagesCollectionViewFlowLayout *)layout
 {
-	NSValue *cachedSize = [self.cache objectForKey:@([messageData messageHash])];
-	if (cachedSize != nil) {
-		return [cachedSize CGSizeValue];
-	}
+    NSValue *cachedSize = [self.cache objectForKey:@([messageData messageHash])];
+    if (cachedSize != nil) {
+        return [cachedSize CGSizeValue];
+    }
 
-	CGSize finalSize = CGSizeZero;
+    CGSize finalSize = CGSizeZero;
 
-	if ([messageData isMediaMessage]) {
+    if ([messageData isMediaMessage]) {
 		if ([[messageData media] isKindOfClass:[JSQPhotoMediaItem class]] && [(JSQPhotoMediaItem*)[messageData media] isSticker]) {
 			finalSize = [(JSQPhotoMediaItem*)[messageData media] image].size;
 			finalSize.height += 16;
@@ -111,49 +111,48 @@
 			finalSize = [[messageData media] mediaViewDisplaySize];
 			finalSize.height += 16;
 		}
-	}
-	else {
-		CGSize avatarSize = [self jsq_avatarSizeForMessageData:messageData withLayout:layout];
+    }
+    else {
+        CGSize avatarSize = [self jsq_avatarSizeForMessageData:messageData withLayout:layout];
 
-		//  from the cell xibs, there is a 2 point space between avatar and bubble
-		CGFloat spacingBetweenAvatarAndBubble = 2.0f;
-		CGFloat horizontalContainerInsets = layout.messageBubbleTextViewTextContainerInsets.left + layout.messageBubbleTextViewTextContainerInsets.right;
-		CGFloat horizontalFrameInsets = layout.messageBubbleTextViewFrameInsets.left + layout.messageBubbleTextViewFrameInsets.right;
+        //  from the cell xibs, there is a 2 point space between avatar and bubble
+        CGFloat spacingBetweenAvatarAndBubble = 2.0f;
+        CGFloat horizontalContainerInsets = layout.messageBubbleTextViewTextContainerInsets.left + layout.messageBubbleTextViewTextContainerInsets.right;
+        CGFloat horizontalFrameInsets = layout.messageBubbleTextViewFrameInsets.left + layout.messageBubbleTextViewFrameInsets.right;
 
-		CGFloat horizontalInsetsTotal = horizontalContainerInsets + horizontalFrameInsets + spacingBetweenAvatarAndBubble;
-		CGFloat maximumTextWidth = [self textBubbleWidthForLayout:layout] - avatarSize.width - layout.messageBubbleLeftRightMargin - horizontalInsetsTotal;
+        CGFloat horizontalInsetsTotal = horizontalContainerInsets + horizontalFrameInsets + spacingBetweenAvatarAndBubble;
+        CGFloat maximumTextWidth = [self textBubbleWidthForLayout:layout] - avatarSize.width - layout.messageBubbleLeftRightMargin - horizontalInsetsTotal;
 
 		CGSize stringSize = [self rectForAttributedString:[[NSAttributedString alloc] initWithString:[messageData text] attributes: @{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : layout.messageBubbleFont}] withSize:CGSizeMake(maximumTextWidth, CGFLOAT_MAX)];
 
 		UITextView *view=[[UITextView alloc] initWithFrame:CGRectMake(0, 0, stringSize.width, CGFLOAT_MAX)];
 		view.font = layout.messageBubbleFont;
 		view.text=[messageData text];
-		CGSize size=[view sizeThatFits:CGSizeMake(stringSize.width, CGFLOAT_MAX)];
 
 		stringSize = view.contentSize;
 
 		view = nil;
 		//[[messageData text] boundingRectWithSize:CGSizeMake(maximumTextWidth, CGFLOAT_MAX) options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:@{ NSFontAttributeName : layout.messageBubbleFont } context:nil];
 
+		
+        //CGSize stringSize = CGRectIntegral(stringRect).size;
 
-		//CGSize stringSize = CGRectIntegral(stringRect).size;
+        CGFloat verticalContainerInsets = layout.messageBubbleTextViewTextContainerInsets.top + layout.messageBubbleTextViewTextContainerInsets.bottom;
+        CGFloat verticalFrameInsets = layout.messageBubbleTextViewFrameInsets.top + layout.messageBubbleTextViewFrameInsets.bottom;
 
-		CGFloat verticalContainerInsets = layout.messageBubbleTextViewTextContainerInsets.top + layout.messageBubbleTextViewTextContainerInsets.bottom;
-		CGFloat verticalFrameInsets = layout.messageBubbleTextViewFrameInsets.top + layout.messageBubbleTextViewFrameInsets.bottom;
+        //  add extra 2 points of space (`self.additionalInset`), because `boundingRectWithSize:` is slightly off
+        //  not sure why. magix. (shrug) if you know, submit a PR
+        CGFloat verticalInsets = verticalContainerInsets + verticalFrameInsets + self.additionalInset;
 
-		//  add extra 2 points of space (`self.additionalInset`), because `boundingRectWithSize:` is slightly off
-		//  not sure why. magix. (shrug) if you know, submit a PR
-		CGFloat verticalInsets = verticalContainerInsets + verticalFrameInsets + self.additionalInset;
+        //  same as above, an extra 2 points of magix
+        CGFloat finalWidth = MAX(stringSize.width + horizontalInsetsTotal, self.minimumBubbleWidth) + self.additionalInset;
 
-		//  same as above, an extra 2 points of magix
-		CGFloat finalWidth = MAX(stringSize.width + horizontalInsetsTotal, self.minimumBubbleWidth) + self.additionalInset;
+        finalSize = CGSizeMake(finalWidth-4, stringSize.height + verticalInsets);
+    }
 
-		finalSize = CGSizeMake(finalWidth-4, stringSize.height + verticalInsets);
-	}
+    [self.cache setObject:[NSValue valueWithCGSize:finalSize] forKey:@([messageData messageHash])];
 
-	[self.cache setObject:[NSValue valueWithCGSize:finalSize] forKey:@([messageData messageHash])];
-
-	return finalSize;
+    return finalSize;
 }
 
 - (CGSize)rectForAttributedString:(NSAttributedString *)string withSize:(CGSize)theSize
@@ -176,38 +175,38 @@
 }
 
 - (CGSize)jsq_avatarSizeForMessageData:(id<JSQMessageData>)messageData
-							withLayout:(JSQMessagesCollectionViewFlowLayout *)layout
+                            withLayout:(JSQMessagesCollectionViewFlowLayout *)layout
 {
-	NSString *messageSender = [messageData senderId];
+    NSString *messageSender = [messageData senderId];
 
-	if ([messageSender isEqualToString:[layout.collectionView.dataSource senderId]]) {
-		return layout.outgoingAvatarViewSize;
-	}
+    if ([messageSender isEqualToString:[layout.collectionView.dataSource senderId]]) {
+        return layout.outgoingAvatarViewSize;
+    }
 
-	return layout.incomingAvatarViewSize;
+    return layout.incomingAvatarViewSize;
 }
 
 - (CGFloat)textBubbleWidthForLayout:(JSQMessagesCollectionViewFlowLayout *)layout
 {
-	if (self.usesFixedWidthBubbles) {
-		return [self widthForFixedWidthBubblesWithLayout:layout];
-	}
+    if (self.usesFixedWidthBubbles) {
+        return [self widthForFixedWidthBubblesWithLayout:layout];
+    }
 
-	return layout.itemWidth;
+    return layout.itemWidth;
 }
 
 - (CGFloat)widthForFixedWidthBubblesWithLayout:(JSQMessagesCollectionViewFlowLayout *)layout {
-	if (self.layoutWidthForFixedWidthBubbles > 0.0f) {
-		return self.layoutWidthForFixedWidthBubbles;
-	}
+    if (self.layoutWidthForFixedWidthBubbles > 0.0f) {
+        return self.layoutWidthForFixedWidthBubbles;
+    }
 
-	// also need to add `self.additionalInset` here, see comment above
-	NSInteger horizontalInsets = layout.sectionInset.left + layout.sectionInset.right + self.additionalInset;
-	CGFloat width = CGRectGetWidth(layout.collectionView.bounds) - horizontalInsets;
-	CGFloat height = CGRectGetHeight(layout.collectionView.bounds) - horizontalInsets;
-	self.layoutWidthForFixedWidthBubbles = MIN(width, height);
-
-	return self.layoutWidthForFixedWidthBubbles;
+    // also need to add `self.additionalInset` here, see comment above
+    NSInteger horizontalInsets = layout.sectionInset.left + layout.sectionInset.right + self.additionalInset;
+    CGFloat width = CGRectGetWidth(layout.collectionView.bounds) - horizontalInsets;
+    CGFloat height = CGRectGetHeight(layout.collectionView.bounds) - horizontalInsets;
+    self.layoutWidthForFixedWidthBubbles = MIN(width, height);
+    
+    return self.layoutWidthForFixedWidthBubbles;
 }
 
 @end

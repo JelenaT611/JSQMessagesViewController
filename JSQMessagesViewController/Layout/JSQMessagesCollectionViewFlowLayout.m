@@ -64,7 +64,7 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
     self.sectionInset = UIEdgeInsetsMake(10.0f, 4.0f, 10.0f, 4.0f);
     self.minimumLineSpacing = 4.0f;
     
-    _messageBubbleFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+	_messageBubbleFont = [UIFont fontWithName:@"Panton-Regular" size:17];// (name: "Panton-Regular", size: size)];//[UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
         _messageBubbleLeftRightMargin = 240.0f;
