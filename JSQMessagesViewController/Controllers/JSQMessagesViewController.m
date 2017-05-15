@@ -35,7 +35,6 @@
 
 #import <objc/runtime.h>
 
-
 // Fixes rdar://26295020
 // See issue #1247 and Peter Steinberger's comment:
 // https://github.com/jessesquires/JSQMessagesViewController/issues/1247#issuecomment-219386199
@@ -170,7 +169,9 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     self.incomingMediaCellIdentifier = [JSQMessagesCollectionViewCellIncoming mediaCellReuseIdentifier];
 
     // NOTE: let this behavior be opt-in for now
-    // [JSQMessagesCollectionViewCell registerMenuAction:@selector(delete:)];
+    [JSQMessagesCollectionViewCell registerMenuAction:@selector(delete:)];
+	[JSQMessagesCollectionViewCell registerMenuAction:@selector(forward:)];
+	[JSQMessagesCollectionViewCell registerMenuAction:@selector(share:)];
 
     self.showTypingIndicator = NO;
 

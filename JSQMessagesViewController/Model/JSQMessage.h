@@ -78,6 +78,7 @@ typedef enum {
 @property (nonatomic) int timer;
 @property (nonatomic) float progress;
 @property (nonatomic, strong) NSString *messageId;
+@property (nonatomic, strong) NSString *messageStr;
 
 #pragma mark - Initialization
 
