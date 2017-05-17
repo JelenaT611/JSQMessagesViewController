@@ -72,6 +72,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView didDeleteMessageAtIndexPath:(NSIndexPath *)indexPath;
 
+
+	- (void)collectionView:(JSQMessagesCollectionView *)collectionView shouldForwardMessageAtIndexPath:(NSIndexPath *)indexPath;
+
+	- (void)collectionView:(JSQMessagesCollectionView *)collectionView shouldShareMessageAtIndexPath:(NSIndexPath *)indexPath;
+
 /**
  *  Asks the data source for the message bubble image data that corresponds to the specified message data item at indexPath in the collectionView.
  *

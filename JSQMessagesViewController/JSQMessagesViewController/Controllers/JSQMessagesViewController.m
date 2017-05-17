@@ -32,8 +32,9 @@
 
 #import "NSString+JSQMessages.h"
 #import "NSBundle+JSQMessages.h"
-
+#import <MobileCoreServices/UTCoreTypes.h>
 #import <objc/runtime.h>
+#import "JSQMessage.h"
 
 // Fixes rdar://26295020
 // See issue #1247 and Peter Steinberger's comment:
@@ -173,6 +174,12 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 	[JSQMessagesCollectionViewCell registerMenuAction:@selector(forward:)];
 	[JSQMessagesCollectionViewCell registerMenuAction:@selector(share:)];
 
+	UIMenuItem *menuItem3 = [[UIMenuItem alloc] initWithTitle:@"Share" action:@selector(share:)];
+	UIMenuItem *menuItem4 = [[UIMenuItem alloc] initWithTitle:@"Forward" action:@selector(forward:)];
+
+	[[UIMenuController sharedMenuController] setMenuItems: @[menuItem3, menuItem4]];
+	[[UIMenuController sharedMenuController] update];
+
     self.showTypingIndicator = NO;
 
     self.showLoadEarlierMessagesHeader = NO;
@@ -180,6 +187,14 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     self.additionalContentInset = UIEdgeInsetsZero;
 
     [self jsq_updateCollectionViewInsets];
+}
+
+-(void)forward:(nullable id)sender {
+
+}
+
+-(void)share:(nullable id)sender {
+
 }
 
 - (void)dealloc
@@ -458,6 +473,17 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     NSAssert(NO, @"ERROR: required method not implemented: %s", __PRETTY_FUNCTION__);
 }
 
+	- (void)collectionView:(JSQMessagesCollectionView *)collectionView shouldForwardMessageAtIndexPath:(NSIndexPath *)indexPath
+	{
+		NSAssert(NO, @"ERROR: required method not implemented: %s", __PRETTY_FUNCTION__);
+	}
+
+	- (void)collectionView:(JSQMessagesCollectionView *)collectionView shouldShareMessageAtIndexPath:(NSIndexPath *)indexPath
+	{
+		NSAssert(NO, @"ERROR: required method not implemented: %s", __PRETTY_FUNCTION__);
+	}
+
+
 - (id<JSQMessageBubbleImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView messageBubbleImageDataForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSAssert(NO, @"ERROR: required method not implemented: %s", __PRETTY_FUNCTION__);
@@ -666,9 +692,34 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 
 - (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
 {
-    if (action == @selector(copy:) || action == @selector(delete:)) {
-        return YES;
-    }
+	if (action == @selector(copy:)) {
+		id<JSQMessageData> messageData = [self collectionView:collectionView messageDataForItemAtIndexPath:indexPath];
+
+		if ([messageData isMediaMessage]) {
+			id<JSQMessageMediaData> mediaData = [messageData media];
+			if (![mediaData mediaData]) {
+				return NO;
+			}
+		}
+		return YES;
+	} else if (action == @selector(delete:)) {
+		id<JSQMessageData> messageData = [self collectionView:collectionView messageDataForItemAtIndexPath:indexPath];
+		if ([messageData isKindOfClass:[JSQMessage class]]) {
+			if ([(JSQMessage *)messageData messageStr].length > 0) {
+				return  YES;
+			}
+		}
+
+        return NO;
+	} else if (action == @selector(forward:)) {
+		return YES;
+	} else if (action == @selector(share:)) {
+		id<JSQMessageData> messageData = [self collectionView:collectionView messageDataForItemAtIndexPath:indexPath];
+
+		if ([messageData isMediaMessage]) {
+			return YES;
+		}
+	}
 
     return NO;
 }
@@ -681,6 +732,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 
         if ([messageData isMediaMessage]) {
             id<JSQMessageMediaData> mediaData = [messageData media];
+
             if ([messageData conformsToProtocol:@protocol(JSQMessageData)]) {
                 [[UIPasteboard generalPasteboard] setValue:[mediaData mediaData]
                                          forPasteboardType:[mediaData mediaDataType]];
@@ -694,7 +746,13 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 
         [collectionView deleteItemsAtIndexPaths:@[indexPath]];
         [collectionView.collectionViewLayout invalidateLayout];
-    }
+	} else if (action == @selector(share:)) {
+		[collectionView.dataSource collectionView:collectionView shouldShareMessageAtIndexPath:indexPath];
+
+	} else if (action == @selector(forward:)) {
+		[collectionView.dataSource collectionView:collectionView shouldForwardMessageAtIndexPath:indexPath];
+
+	}
 }
 
 #pragma mark - Collection view delegate flow layout
@@ -851,7 +909,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     //  per comment above in 'shouldShowMenuForItemAtIndexPath:'
     //  re-enable 'selectable', thus re-enabling data detectors if present
     JSQMessagesCollectionViewCell *selectedCell = (JSQMessagesCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:self.selectedIndexPathForMenu];
-    selectedCell.textView.selectable = YES;
+    selectedCell.textView.selectable = NO;
     self.selectedIndexPathForMenu = nil;
 }
 
