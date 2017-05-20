@@ -174,8 +174,10 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 	[JSQMessagesCollectionViewCell registerMenuAction:@selector(forward:)];
 	[JSQMessagesCollectionViewCell registerMenuAction:@selector(share:)];
 
-	UIMenuItem *menuItem3 = [[UIMenuItem alloc] initWithTitle:@"Share" action:@selector(share:)];
-	UIMenuItem *menuItem4 = [[UIMenuItem alloc] initWithTitle:@"Forward" action:@selector(forward:)];
+	NSLog(@"%@", [NSBundle.mainBundle localizedStringForKey:(@"Forward") value:@"" table:nil]);
+	
+	UIMenuItem *menuItem3 = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Share", nil) action:@selector(share:)];
+	UIMenuItem *menuItem4 = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Forward", nil) action:@selector(forward:)];
 
 	[[UIMenuController sharedMenuController] setMenuItems: @[menuItem3, menuItem4]];
 	[[UIMenuController sharedMenuController] update];
